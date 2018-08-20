@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 
 import { CarritoService } from "../../providers/carrito";
 
@@ -13,7 +14,9 @@ export class OrdenesDetallePage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private _cs:CarritoService ) {
+              private _cs:CarritoService,
+              private alertCtrl:AlertController, 
+              private toastCtrl:ToastController) {
 
     this.orden = this.navParams.get("orden");
 
@@ -21,8 +24,31 @@ export class OrdenesDetallePage {
 
   borrar_orden( orden_id:string ){
 
+    this._cs.borrar_orden(orden_id)
+    .subscribe ( data =>{
+      if(data.error){
+        this.alertCtrl.create({
+          title: "Error al borrar",
+          subTitle: data.mensaje,
+          buttons: ["OK"]
+        }).present();
+      }
+      else{
+        this.navCtrl.pop()
+        this.confirmarBorrado();
+      }
+    });
     
 
+  }
+
+  confirmarBorrado() {
+    const toast = this.toastCtrl.create({
+      message: 'Pedido eliminado exitosamente',
+      duration: 3000,
+      position: 'middle'
+    });
+    toast.present();
   }
 
 

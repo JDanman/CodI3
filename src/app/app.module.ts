@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-
+//Plug-ins
 import { HttpModule } from '@angular/http';
 // Pipes
 import { ImagenPipe } from "../pipes/imagen";

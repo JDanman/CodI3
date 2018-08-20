@@ -22,11 +22,10 @@ export class HomePage {
 
   }
 
-
+  //Función asincorna: Actua cuando se llega al fondo de la página
   siguiente_pagina( infiniteScroll ){
 
-    
-
+    this._ps.cargar_todos();
 
   }
 

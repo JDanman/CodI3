@@ -13,6 +13,7 @@ import { ProductoPage } from "../index.paginas";
 export class Busqueda {
 
   productoPage = ProductoPage;
+  elemento:string = "";
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -20,11 +21,13 @@ export class Busqueda {
   }
 
 
+  //Función asincrona sencible a cambios
+  //(Actua cada vez que detecta un cambio en la barra de busqueda)
   buscar_productos(ev: any){
 
+    this._ps.buscar_producto(this.elemento); 
     
   }
-
 
 
 }

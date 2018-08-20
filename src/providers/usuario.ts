@@ -43,6 +43,8 @@ export class UsuarioService {
     data.append("correo", correo );
     data.append("contrasena", contrasena );
 
+    console.log(data);
+
     let url = URL_SERVICIOS + "/login";
 
     return this.http.post( url, data )

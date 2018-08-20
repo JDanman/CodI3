@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import { ToastController } from 'ionic-angular';
+
 import { AlertController, Platform, ModalController } from "ionic-angular";
 
 // Plugin storage
@@ -28,7 +30,8 @@ export class CarritoService {
                private platform: Platform,
                private storage:Storage,
                private modalCtrl:ModalController,
-               private _us:UsuarioService ) {
+               private _us:UsuarioService,
+               private toastCtrl:ToastController ) {
     console.log('Hello Carrito Provider');
 
     this.cargar_storage();
@@ -39,6 +42,7 @@ export class CarritoService {
 
     this.items.splice(idx,1);
     this.guardar_storage();
+    this.confirmarAccion("Producto descartado exitosamente");
 
   }
 
@@ -128,6 +132,7 @@ export class CarritoService {
     }
 
     this.items.push( item_parametro );
+    this.confirmarAccion("Producto añadido a su carrito");
     this.actualizar_total();
     this.guardar_storage();
   }
@@ -209,6 +214,7 @@ export class CarritoService {
             }else{
 
               this.ordenes = data.ordenes;
+              console.log(this.ordenes);
 
             }
 
@@ -221,10 +227,21 @@ export class CarritoService {
 
     let url = `${ URL_SERVICIOS }/pedidos/borrar_pedido/${ this._us.token }/${ this._us.id_usuario }/${ orden_id }`;
 
+    this.confirmarAccion("Orden Eliminada exitosamente");
+
     return this.http.delete( url )
                   .map( resp => resp.json() );
 
 
+  }
+
+  confirmarAccion(mensaje:string) {
+    const toast = this.toastCtrl.create({
+      message: mensaje,
+      duration: 3000,
+      position: 'middle'
+    });
+    toast.present();
   }
 
 
