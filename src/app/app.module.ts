@@ -7,23 +7,64 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
+import { HttpModule } from '@angular/http';
+// Pipes
+import { ImagenPipe } from "../pipes/imagen";
+// storage
+import { IonicStorageModule } from '@ionic/storage';
+// servicios
+import { CarritoService, UsuarioService, ProductosService } from "../providers/index.services";
+
+// Paginas
+import {  CarritoPage,
+          CategoriasPage,
+          LoginPage,
+          OrdenesPage,
+          OrdenesDetallePage,
+          PorCategoriasPage,
+          TabsPage,
+          ProductoPage } from "../pages/index.paginas";
+
+
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    ImagenPipe,
+    CarritoPage,
+    CategoriasPage,
+    LoginPage,
+    OrdenesPage,
+    OrdenesDetallePage,
+    PorCategoriasPage,
+    TabsPage,
+    ProductoPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    HttpModule,
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    CarritoPage,
+    CategoriasPage,
+    LoginPage,
+    OrdenesPage,
+    OrdenesDetallePage,
+    PorCategoriasPage,
+    TabsPage,
+    ProductoPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    CarritoService,
+    UsuarioService,
+    ProductosService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
